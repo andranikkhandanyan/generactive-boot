@@ -57,6 +57,22 @@ jobs:
         port: 22
         source: "build/libs/generactive-0.0.1-SNAPSHOT.jar"      
         target: "~/source"
+        
+    - name: Start Service
+      uses: appleboy/ssh-action@master
+      with:
+        host: ec2-18-159-213-239.eu-central-1.compute.amazonaws.com         
+        username: ubuntu     
+        key: ${{ secrets.SERVER_SSH_KEY }}
+        port: 22
+        script: |
+          sudo /etc/init.d/my-app stop
+          mv ~/source/app.jar ~/source/app-old.jar
+          mv ~/source/build/libs/generactive-0.0.1-SNAPSHOT.jar ~/source/app.jar
+          sudo rm -rf /etc/init.d/my-app
+          sudo ln -s -f ~/source/app.jar /etc/init.d/app
+          sudo /etc/init.d/app start
+          rm ~/source/app-old.jar
       
       
       
