@@ -66,12 +66,11 @@ jobs:
         key: ${{ secrets.SERVER_SSH_KEY }}
         port: 22
         script: |
-          sudo /etc/init.d/my-app stop
           mv ~/source/app.jar ~/source/app-old.jar
           mv ~/source/build/libs/generactive-0.0.1-SNAPSHOT.jar ~/source/app.jar
           sudo rm -rf /etc/init.d/my-app
           sudo ln -s -f ~/source/app.jar /etc/init.d/app
-          sudo /etc/init.d/app start
+          sudo java -jar ~/source/app-old.jar
           rm ~/source/app-old.jar
       
       
