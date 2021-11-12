@@ -70,7 +70,7 @@ jobs:
           mv ~/source/build/libs/generactive-0.0.1-SNAPSHOT.jar ~/source/app.jar
           sudo rm -rf /etc/init.d/my-app
           sudo ln -s -f ~/source/app.jar /etc/init.d/app
-          sudo java -jar ~/source/app-old.jar
+          sudo java -jar ~/source/app-old.jar -y
           rm ~/source/app-old.jar
       
       
